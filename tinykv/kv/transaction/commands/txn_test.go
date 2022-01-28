@@ -427,7 +427,7 @@ func TestBasicResolveLab2P3(t *testing.T) {
 	// The key is locked, some other transaction ties to resolve this lock.
 	mustPrewritePut(t, store, latches, k1, v1, k1, genPhyTS(1), 10)
 	mustCommit(t, store, latches, k1, genPhyTS(1), genPhyTS(5))
-	mustPrewritePut(t, store, latches, k1, v2, k1, genPhyTS(11), 8)
+	mustPrewritePut(t, store, latches, k1, v2, k1, genPhyTS(11), 8) // no commit, locked here
 
 	// The key is still locked, keep wait. Then it's expired.
 	mustCheckTxnStatusLocked(t, store, latches, k1, genPhyTS(11), genPhyTS(12), 8)
